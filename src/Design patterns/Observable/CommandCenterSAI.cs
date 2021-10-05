@@ -16,45 +16,24 @@ namespace Design_patterns.Observable
 
     public class CommandCenterSAI : IObservable<IObserver>
     {
-        private List<IObserver> _observers;
-
-        /*
-         * We can use event instead list
-
         private delegate void NewMessageEventHandler(NewMessageArgs newMessage);
         private event NewMessageEventHandler MessageChanged;
 
-        */
-
-        public CommandCenterSAI()
-        {
-            _observers = new List<IObserver>();
-        }
-
         public void AddObserver(IObserver observer)
         {
-            _observers.Add(observer);
+            MessageChanged += observer.Update;
+        }
 
-            //MessageChanged += observer.Update;
+        public void RemoveObserver(IObserver observer)
+        {
+            MessageChanged -= observer.Update;
         }
 
         public void NotifyObservers()
         {
             var randomInfo = GetNewMessage();
 
-            foreach (var observer in _observers)
-            {
-                observer.Update(randomInfo);
-            }
-
-            //MessageChanged?.Invoke(randomInfo);
-        }
-
-        public void RemoveObserver(IObserver observer)
-        {
-            _observers.Remove(observer);
-
-            //MessageChanged -= observer.Update;
+            MessageChanged?.Invoke(randomInfo);
         }
 
         public NewMessageArgs GetNewMessage()
