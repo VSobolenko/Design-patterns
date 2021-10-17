@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Design_patterns.ComputerComponents;
 
 namespace Design_patterns
 {
@@ -6,7 +6,15 @@ namespace Design_patterns
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var apple = new Computer(new Power(), new OperatingSystemComputer("Windows"), new Programms());
+
+            apple.OpenProgramm("editor");
+
+            apple.EnableComputer();
+            apple.OpenProgramm("editor");
+            apple.DisableComputer();
+
+            apple.DisableComputer();
         }
     }
 }
